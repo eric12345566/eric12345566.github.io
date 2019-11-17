@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="https://www.w3.org/2005/Atom">
+  <title>Eric&#39;s Blog</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://eric12345566.github.io/"/>
+  <updated>2019-11-17T16:55:08.461Z</updated>
+  <id>https://eric12345566.github.io/</id>
+  
+  <author>
+    <name>Eric Shih</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://eric12345566.github.io/2019/11/17/hello-world/"/>
+    <id>https://eric12345566.github.io/2019/11/17/hello-world/</id>
+    <published>2019-11-16T17:34:55.000Z</published>
+    <updated>2019-11-17T16:55:08.461Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h1><p>安裝這個部落格，比我想的還艱難，不過總算是解決了大部分的問題了。之後我會再發一篇文章，講解一下這次我架設部落格，到底發生了什麼事情。</p><p>而這篇招呼文，想帶大家認識一下我，也認識一下這個部落格。以下會以問答式的方式，來闡述我的心路歷程。</p><a id="more"></a><h2 id="為什麼要架部落格？"><a href="#為什麼要架部落格？" class="headerlink" title="為什麼要架部落格？"></a>為什麼要架部落格？</h2><p>為了發大財？當然不是。</p><p>最主要的目的其實是想紀錄自己研究、學習技術的心得、筆記或過程，希望藉此看見自己的成長，甚至是督促自己持續進步學習，也可以順便為有需要的網友們，提供一個參考教學文件。</p><h2 id="部落格採用的平台、系統？"><a href="#部落格採用的平台、系統？" class="headerlink" title="部落格採用的平台、系統？"></a>部落格採用的平台、系統？</h2><p>本來我想在我的伺服器上架設 Ghost，架設好之後發現 Ghost 對非英文使用者的友善度低到很嚇人。一氣之下砍掉 Ghost 之後改用 Hexo，這才體會到什麼叫做專屬於 Geek 的 Blog CMS。</p><p>總而言之，使用的是 Hexo + Github Page，theme 的部分使用 next。還有很多東西沒設定好、還沒深入了解設定的部分，請大家多多見諒 + 提建議囉！</p><h2 id="我的身份？"><a href="#我的身份？" class="headerlink" title="我的身份？"></a>我的身份？</h2><p>大學生/Web App Developer/音樂人，這幾種身份都不敢說做得很好，但我一直在持續努力精進自己，期望有一天能出頭天。</p><h2 id="想跟我聊聊天？"><a href="#想跟我聊聊天？" class="headerlink" title="想跟我聊聊天？"></a>想跟我聊聊天？</h2><p>我會盡快把 Disqus 裝好的先別急啊QQ</p><p>以上，請多多指教！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Hello-World&quot;&gt;&lt;a href=&quot;#Hello-World&quot; class=&quot;headerlink&quot; title=&quot;Hello World&quot;&gt;&lt;/a&gt;Hello World&lt;/h1&gt;&lt;p&gt;安裝這個部落格，比我想的還艱難，不過總算是解決了大部分的問題了。之後我會再發一篇文章，講解一下這次我架設部落格，到底發生了什麼事情。&lt;/p&gt;
+&lt;p&gt;而這篇招呼文，想帶大家認識一下我，也認識一下這個部落格。以下會以問答式的方式，來闡述我的心路歷程。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="生活紀錄" scheme="https://eric12345566.github.io/categories/%E7%94%9F%E6%B4%BB%E7%B4%80%E9%8C%84/"/>
+    
+    
+      <category term="打招呼" scheme="https://eric12345566.github.io/tags/%E6%89%93%E6%8B%9B%E5%91%BC/"/>
+    
+  </entry>
+  
+</feed>
