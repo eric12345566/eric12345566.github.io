@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://eric12345566.github.io/"/>
-  <updated>2019-11-17T16:55:08.461Z</updated>
+  <updated>2019-11-18T03:29:35.638Z</updated>
   <id>https://eric12345566.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何用手機拷貝 Mifare Card（門禁卡）？</title>
+    <link href="https://eric12345566.github.io/2019/11/18/nfc-card-copy/"/>
+    <id>https://eric12345566.github.io/2019/11/18/nfc-card-copy/</id>
+    <published>2019-11-18T00:23:39.000Z</published>
+    <updated>2019-11-18T03:29:35.638Z</updated>
+    
+    <content type="html"><![CDATA[<p>一開始是覺得每次要進圖書館要刷學生證，當忘記帶學生證的時候就會變得麻煩。因此，就想到不知道可不可以用拷貝的方式，讓我手上多一張可以刷的學生證？也因此產生了以下幾個大膽的猜測以及實作。</p><h2 id="門禁系統到底檢查什麼資料？"><a href="#門禁系統到底檢查什麼資料？" class="headerlink" title="門禁系統到底檢查什麼資料？"></a>門禁系統到底檢查什麼資料？</h2><p>假設你跟我的學生證一樣，是擁有悠遊卡功能的學生證。如果你使用工具嘗試查看卡片的資料，會發現所有的 sector 都已被加密，無法查看內部資料。到頭來我們能看到的，就只有 UID 等等卡片本身的基本資訊。</p><a id="more"></a><p>我沒有找到悠遊卡公司對於這種客製悠遊卡的技術文件，但我猜測，卡片中的所有 sector 的金鑰只有悠遊卡公司所有，也就是說一般的門禁系統不可能有辦法讀取裡頭的資料。所以唯一能檢查的部分，就是 UID 了。</p><p>如果你對 M1 卡有了解，你會知道 UID「理論上」是全世界唯一的，這也造就了許多門禁系統使用 UID 當認證資料，因為在正常情況下，你無法找到第二張 UID 相同的卡片。</p><p>聰明的你一定想到了：該買一張可以更改 UID 的 M1 卡囉！</p><h2 id="準備工作"><a href="#準備工作" class="headerlink" title="準備工作"></a>準備工作</h2><p>你需要的工具如下：</p><ol><li>有 NFC 功能的 Android 手機</li><li><a href="https://www.icaria.de/mct/releases/" target="_blank" rel="noopener">MCT App</a>(選擇最新版本號)</li><li>CUID 卡</li></ol><p>這邊要解釋一下，如果你到網站上搜尋一波 UID 可更改的卡片，你最常會找到兩種類型的卡：</p><p><em>UID卡</em> :</p><ol><li>別名 Chinese Magic Card Gen 1</li><li>使用 Backdoor 指令來修改卡片 UID</li><li>網路上所講的無法穿透「防火牆」，意思是門禁讀卡機已知如何用 Backdoor 指令檢查是不是 UID卡，來認證是否有整當存取權</li><li>目前很常會被門禁系統擋下</li></ol><p><em>CUID卡</em></p><ol><li></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一開始是覺得每次要進圖書館要刷學生證，當忘記帶學生證的時候就會變得麻煩。因此，就想到不知道可不可以用拷貝的方式，讓我手上多一張可以刷的學生證？也因此產生了以下幾個大膽的猜測以及實作。&lt;/p&gt;
+&lt;h2 id=&quot;門禁系統到底檢查什麼資料？&quot;&gt;&lt;a href=&quot;#門禁系統到底檢查什麼資料？&quot; class=&quot;headerlink&quot; title=&quot;門禁系統到底檢查什麼資料？&quot;&gt;&lt;/a&gt;門禁系統到底檢查什麼資料？&lt;/h2&gt;&lt;p&gt;假設你跟我的學生證一樣，是擁有悠遊卡功能的學生證。如果你使用工具嘗試查看卡片的資料，會發現所有的 sector 都已被加密，無法查看內部資料。到頭來我們能看到的，就只有 UID 等等卡片本身的基本資訊。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="NFC-card" scheme="https://eric12345566.github.io/tags/NFC-card/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
