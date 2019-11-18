@@ -54,7 +54,7 @@
 <meta property="og:site_name" content="Eric&#39;s Blog">
 <meta property="og:description" content="一開始是覺得每次要進圖書館要刷學生證，當忘記帶學生證的時候就會變得麻煩。因此，就想到不知道可不可以用拷貝的方式，讓我手上多一張可以刷的學生證？也因此產生了以下幾個大膽的猜測以及實作。 門禁系統到底檢查什麼資料？假設你跟我的學生證一樣，是擁有悠遊卡功能的學生證。如果你使用工具嘗試查看卡片的資料，會發現所有的 sector 都已被加密，無法查看內部資料。到頭來我們能看到的，就只有 UID 等等卡片本身">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2019-11-18T03:29:35.638Z">
+<meta property="og:updated_time" content="2019-11-18T06:41:22.377Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://eric12345566.github.io/2019/11/18/nfc-card-copy/">
@@ -204,7 +204,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-11-18 08:23:39 / Modified: 11:29:35" itemprop="dateCreated datePublished" datetime="2019-11-18T08:23:39+08:00">2019-11-18</time>
+              <time title="Created: 2019-11-18 08:23:39 / Modified: 14:41:22" itemprop="dateCreated datePublished" datetime="2019-11-18T08:23:39+08:00">2019-11-18</time>
             </span>
 
           
@@ -239,24 +239,42 @@
 <p>我沒有找到悠遊卡公司對於這種客製悠遊卡的技術文件，但我猜測，卡片中的所有 sector 的金鑰只有悠遊卡公司所有，也就是說一般的門禁系統不可能有辦法讀取裡頭的資料。所以唯一能檢查的部分，就是 UID 了。</p>
 <p>如果你對 M1 卡有了解，你會知道 UID「理論上」是全世界唯一的，這也造就了許多門禁系統使用 UID 當認證資料，因為在正常情況下，你無法找到第二張 UID 相同的卡片。</p>
 <p>聰明的你一定想到了：該買一張可以更改 UID 的 M1 卡囉！</p>
+<hr>
+<h2 id="Mifare-Classic-1k"><a href="#Mifare-Classic-1k" class="headerlink" title="Mifare Classic 1k"></a>Mifare Classic 1k</h2><p>這款 NFC 卡是目前市面上流通最廣的類型。許多大樓門禁卡、學生證，甚至到悠遊卡都是採用這款。雖然流通慎廣，但卻非最安全。事實上，市面上已經有許多工具可以用來破解這類卡的加密區塊，取得裡頭的重要資料，甚至是拷貝一張。</p>
+<p>M1 卡（這張卡的簡稱）的儲存結構為，16 個 Sector，每個 Sector 又有 4 個 Block，每一個 Block 16 Byte。每個 Sector 最後一個 Block 用來存放 KeyA、控制代碼、KeyB，主要用來進行加解密以及告訴讀卡機他的讀取方式。</p>
+<p>最特別的部分，也是今天我們主要要處理的部分是 Sector 0 的 Block 0。理論上，他是出廠時就會寫死的數據，也就是 UID、BCC 跟廠商代號。UID 為全球唯一的 ID，正常情況下不會出現第二張 UID 一樣卡片，這也是為什麼廠商認為使用 UID 進行身份驗證會是安全的。當然，我們現在知道了，他是最不安全的驗證方式。幾乎跟驗證沒加密的資料一樣不安全了。</p>
+<hr>
 <h2 id="準備工作"><a href="#準備工作" class="headerlink" title="準備工作"></a>準備工作</h2><p>你需要的工具如下：</p>
 <ol>
 <li>有 NFC 功能的 Android 手機</li>
-<li><a href="https://www.icaria.de/mct/releases/" target="_blank" rel="noopener">MCT App</a>(選擇最新版本號)</li>
+<li><a href="https://www.icaria.de/mct/releases/" target="_blank" rel="noopener">MCT App</a>（選擇最新版本號）</li>
 <li>CUID 卡</li>
 </ol>
 <p>這邊要解釋一下，如果你到網站上搜尋一波 UID 可更改的卡片，你最常會找到兩種類型的卡：</p>
-<p><em>UID卡</em> :</p>
+<p><strong>UID卡</strong> :</p>
 <ol>
 <li>別名 Chinese Magic Card Gen 1</li>
 <li>使用 Backdoor 指令來修改卡片 UID</li>
 <li>網路上所講的無法穿透「防火牆」，意思是門禁讀卡機已知如何用 Backdoor 指令檢查是不是 UID卡，來認證是否有整當存取權</li>
 <li>目前很常會被門禁系統擋下</li>
 </ol>
-<p><em>CUID卡</em></p>
+<p><strong>CUID卡</strong></p>
 <ol>
-<li></li>
+<li>別名 Chinese Magic Card Gen 2</li>
+<li>與 Gen 1 不一樣的方式寫入 UID</li>
+<li>目前大部分的機器不會檔</li>
+<li>MCT App 支援 Clone UID</li>
 </ol>
+<p>當然還有 FUID、FCUID 等等的卡片，第一次玩複製不建議使用，雖然他們更難被防火牆擋住，但對於新手測試來說並不方便（一次性寫入、需要封卡..等複雜操作）</p>
+<p>至於要在哪裡買？請自己上網找囉！建議在購買之前先問看看店家是不是「Chinese Magic Card Gen 2」，避免店家亂寫買錯東西。</p>
+<hr>
+<h2 id="開始"><a href="#開始" class="headerlink" title="開始"></a>開始</h2><h3 id="STEP-1"><a href="#STEP-1" class="headerlink" title="STEP 1"></a>STEP 1</h3><p>打開 MCT，點選右下的工具按鈕後，點選Clone UID</p>
+<h3 id="STEP-2"><a href="#STEP-2" class="headerlink" title="STEP 2"></a>STEP 2</h3><p>將你要複製的卡靠近手機 NFC 感應處，讀取 UID</p>
+<h3 id="STEP-3"><a href="#STEP-3" class="headerlink" title="STEP 3"></a>STEP 3</h3><p>點選「Calculate」讓程式幫你自動計算 BCC，並且準備進行拷貝</p>
+<h3 id="STEP-4"><a href="#STEP-4" class="headerlink" title="STEP 4"></a>STEP 4</h3><p>將要被寫入的 CUID 卡靠近手機 NFC 處，手機這時會寫入，請不要隨意移動，否則卡片匯損毀。</p>
+<p>基本上 Log 沒顯示錯誤就是成功了，可以去測試囉！</p>
+<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>經過測試後，成功可以刷過學校圖書館的門禁，大概也可以刷過其他設施的門禁了。現在應該來研究如何在卡片上列印（大誤）。</p>
+<p>我也針對一些大樓的門禁卡進行分析，發現很多卡也都是使用 UID 進行認證，很多甚至連其他 sector 的 Key A, Key B 都是預設密碼。在現在的社會，這樣的大樓門禁幾乎可以說是毫無防備功能，在乎安全的朋友們，可能得注意了。</p>
 
     </div>
 
@@ -326,7 +344,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#門禁系統到底檢查什麼資料？"><span class="nav-number">1.</span> <span class="nav-text">門禁系統到底檢查什麼資料？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#準備工作"><span class="nav-number">2.</span> <span class="nav-text">準備工作</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#門禁系統到底檢查什麼資料？"><span class="nav-number">1.</span> <span class="nav-text">門禁系統到底檢查什麼資料？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mifare-Classic-1k"><span class="nav-number">2.</span> <span class="nav-text">Mifare Classic 1k</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#準備工作"><span class="nav-number">3.</span> <span class="nav-text">準備工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#開始"><span class="nav-number">4.</span> <span class="nav-text">開始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#STEP-1"><span class="nav-number">4.1.</span> <span class="nav-text">STEP 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STEP-2"><span class="nav-number">4.2.</span> <span class="nav-text">STEP 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STEP-3"><span class="nav-number">4.3.</span> <span class="nav-text">STEP 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STEP-4"><span class="nav-number">4.4.</span> <span class="nav-text">STEP 4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#後記"><span class="nav-number">5.</span> <span class="nav-text">後記</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
